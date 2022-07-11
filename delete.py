@@ -3,7 +3,7 @@ import boto3
 ec2 = boto3.resource("ec2")
 
 
-def delete_all_tail(name):
+def delete_tail(name):
     _, *tail = ec2.images.filter(
         Filters=[{"Name": "name", "Values": [name]}], Owners=["self"]
     )
