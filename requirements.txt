@@ -4,13 +4,13 @@
 #
 #    pip-compile --generate-hashes
 #
-boto3==1.24.26 \
-    --hash=sha256:46b0909379955d70ae995ecd26a03e4842104da81ecdc38b83b5701d70e87c2e \
-    --hash=sha256:b8e79df81b57c40b3ddf7bfe657bf239c0ae70f6c6fab9fa3784d4f30253d29c
+boto3==1.24.28 \
+    --hash=sha256:af12023bb8f3059bb72697bcf9be860c492760c8201ec09246bd0b04cea88573 \
+    --hash=sha256:efce6dcf0b708cf609b2583f0134b1896f4e76c8b1e25702d50c81719a213664
     # via -r requirements.in
-botocore==1.27.26 \
-    --hash=sha256:0436b1e3fae36ea53760380e87cd80f94c8cdd3085c84a8a431d1182cf5b99e8 \
-    --hash=sha256:4a46d0508470883dc97ab8e9769617f21229f4ff8c146a47379f4042d917e520
+botocore==1.27.28 \
+    --hash=sha256:b00da6290d8d42c6c3048b045d6537421e8b83e03b4f24bb44c5ea9f37ab6258 \
+    --hash=sha256:cd4dff88419c7b6865f91551db3eb526283ebc56dc99f1d9b7adb5aa080674f8
     # via
     #   boto3
     #   s3transfer
@@ -23,7 +23,9 @@ jmespath==1.0.1 \
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
     --hash=sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9
-    # via botocore
+    # via
+    #   -r requirements.in
+    #   botocore
 s3transfer==0.6.0 \
     --hash=sha256:06176b74f3a15f61f1b4f25a1fc29a4429040b7647133a463da8fa5bd28d5ecd \
     --hash=sha256:2ed07d3866f523cc561bf4a00fc5535827981b117dd7876f036b0c1aca42c947
