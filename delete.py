@@ -14,7 +14,7 @@ def _filter(name):
 
 
 def _delete(images, dry_run):
-    for i in images:
+    for c, i in enumerate(images, start=1):
         get_snapshot_id = lambda: [
             d["Ebs"]["SnapshotId"] for d in i.block_device_mappings if "Ebs" in d
         ][0]
@@ -22,17 +22,19 @@ def _delete(images, dry_run):
         name = i.name
         snapshot_id = get_snapshot_id()
 
-        print(name + " deregistering")
+        print("Deleting %d/%d" % (c, len(images)))
+
+        print("%s deregistering" % name)
 
         if not dry_run:
             i.deregister()
-            print(name + " deregistered")
+            print("%s deregistered" % name)
 
-        print(snapshot_id + " deleting")
+        print("%s deleting" % snapshot_id)
 
         if not dry_run:
             ec2.Snapshot(snapshot_id).delete()
-            print(snapshot_id + " deleted")
+            print("%s deleted" % snapshot_id)
 
 
 def delete_tail(name, dry_run):
