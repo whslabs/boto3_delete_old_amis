@@ -28,7 +28,10 @@ py_library(
     name = "boto3_delete_old_amis",
     srcs = ["delete.py"],
     visibility = ["//:__subpackages__"],
-    deps = ["@pip_boto3//:pkg"],
+    deps = [
+        "@pip_boto3//:pkg",
+        "@pip_python_dateutil//:pkg",
+    ],
 )
 
 py_binary(
