@@ -46,12 +46,20 @@ def delete_tail(name, dry_run):
 
 
 def delete_days(name, days, dry_run):
-    images = _filter(name)
+    b, *images = _filter(name)
+
+    def s(i):
+        nonlocal b
+        j, b = b, i
+        return j
 
     today = datetime.now(timezone.utc).replace(
         hour=0, minute=0, second=0, microsecond=0
     )
 
-    test = lambda i: (today - parser.isoparse(i.creation_date)).days >= days
+    dt = lambda i: parser.isoparse(i.creation_date)
+    test = lambda i: (today - dt(i)).days >= days
 
-    _delete([i for i in images if test(i)], dry_run)
+    f = lambda i: s(i) if dt(i) > dt(b) else i  # if i is larger swap with bucket (b)
+
+    _delete([j for i in images if test(j := f(i))], dry_run)

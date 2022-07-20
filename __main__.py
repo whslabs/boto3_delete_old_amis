@@ -9,4 +9,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    delete_tail("whslabs-cardano-node-*", args.dry_run)
+    delete_days("whslabs-cardano-node-*", -1, args.dry_run)
