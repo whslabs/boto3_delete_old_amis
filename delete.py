@@ -13,6 +13,10 @@ def _filter(name):
     )
 
 
+def _sorted(name):
+    return sorted(_filter(name), key=lambda i: i.creation_date, reverse=True)
+
+
 def _delete(images, dry_run):
     for c, i in enumerate(images, start=1):
         get_snapshot_id = lambda: [
@@ -37,12 +41,19 @@ def _delete(images, dry_run):
             print("%s deleted" % snapshot_id)
 
 
-def delete_tail(name, dry_run):
-    images = _filter(name)
+def _list(name):
+    for c, i in enumerate(images := _sorted(name), start=1):
+        print("Remaining %d/%d" % (c, len(images)))
 
-    _, *tail = sorted(images, key=lambda i: i.creation_date, reverse=True)
+        print(i.name)
+
+
+def delete_tail(name, dry_run):
+    _, *tail = _sorted(name)
 
     _delete(tail, dry_run)
+
+    _list(name)
 
 
 def delete_days(name, days, dry_run):
@@ -63,3 +74,5 @@ def delete_days(name, days, dry_run):
     f = lambda i: s(i) if dt(i) > dt(b) else i  # if i is larger swap with bucket (b)
 
     _delete([j for i in images if test(j := f(i))], dry_run)
+
+    _list(name)
